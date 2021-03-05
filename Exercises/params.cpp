@@ -52,6 +52,7 @@ void runParamsExample() {
 	}
 	cout << "\n";
 	{
+		const int size = 5;
 		double vals[5] = {0.1, 0.2, 0.3, 0.4, 0.5};
 		for (int i : range(5))
 			printf("%4.1f ", vals[i]);

@@ -18,16 +18,30 @@ using namespace std;
 using iter::range;
 
 
-void readValues_v1(...) {
-	
+void readValues_v1(int values[], int numValues) {
+	cout << "Enter grades: ";
+	for (int i : range(numValues))
+		cin >> values[i];
 }
 
-int getTotalGrade_v1(...) {
-	return {};
+int getTotalGrade_v1(const int values[], int numValues) {
+	int total = 0;
+	for (int i : range(numValues))
+		total += values[i];
+	MinMax minmax = findMinMax_v1(values, numValues);
+	return total - minmax.min - minmax.max;
 }
 
-MinMax findMinMax_v1(...) {
-	return {};
+MinMax findMinMax_v1(const int values[], int numValues) {
+	int minVal = values[0];
+	int maxVal = values[0];
+	for (int i : range(numValues)) {
+		if (values[i] < minVal)
+			minVal = values[i];
+		if (values[i] > maxVal)
+			maxVal = values[i];
+	}
+	return { minVal, maxVal };
 }
 
 /*TODO*/void readValues_v2(...) {
@@ -42,16 +56,35 @@ MinMax findMinMax_v2(...) {
 	return {};
 }
 
-void readValues_v3(...) {
-	
+void readValues_v3(span<int> values) {
+	cout << "Enter grades: ";
+	for (int& v : values)
+		cin >> v;
 }
 
-int getTotalGrade_v3(...) {
-	return {};
+int getTotalGrade_v3(span<const int > values) {
+	int minVal = values[0];
+	int maxVal = values[0];
+	int total = 0;
+	for (int v : values) {
+		if (v < minVal)
+			minVal = v;
+		else if (v > maxVal)
+			maxVal = v;
+		total += v;
+	}
+	return total - minVal - maxVal;
 }
 
-MinMax findMinMax_v3(...) {
-	return {};
+MinMax findMinMax_v3(span<const int> values) {
+	MinMax result = { values[0], values[0] };
+	for (int v : values) {
+		if (v < result.min)
+			result.min = v;
+		else if (v > result.max)
+			result.max = v;
+	}
+	return result;
 }
 
 void runCompetitionExample() {
